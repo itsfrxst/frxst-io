@@ -1,134 +1,102 @@
-// Configuration - easier to modify later
-const CONFIG = {
-    numHexagons: 960,
-    hexagonsPerRow: 20,
-    enterWord: "ENTER",
-    transitionDuration: 1000,
-    nextPage: "./main.html"
-};
-
-// Utility function for element selection
-const $ = (id) => document.getElementById(id);
-
-// Handle orientation changes
 function handleOrientationChange(e) {
-    const isPortrait = e.matches;
-    const overlay = $('orientationOverlay');
-    const modal = $('landingModal');
-    const wall = $('hexagon-wall');
-    
-    if (isPortrait) {
+    const portrait = e.matches;
+    const overlay = document.getElementById('orientationOverlay');
+    if (portrait) {
         overlay.style.display = 'flex';
-        modal.style.display = 'none';
-        wall.style.display = 'none';
+        // Optionally, hide main content
+        document.getElementById('landingModal').style.display = 'none';
+        document.getElementById('hexagon-wall').style.display = 'none';
     } else {
         overlay.style.display = 'none';
-        modal.style.display = '';
-        wall.style.display = '';
-        
-        // Only create wall if it doesn't already exist
-        if (!wall.hasChildNodes()) {
-            createHexagonWall(CONFIG.numHexagons, CONFIG.hexagonsPerRow, CONFIG.enterWord);
-        }
+        document.getElementById('landingModal').style.display = '';
+        document.getElementById('hexagon-wall').style.display = '';
+        createHexagonWall(960, 20, "ENTER");
     }
 }
 
 function createHexagonWall(numHexagons, hexagonsPerRow, enterWord) {
-    const hexagonWall = $('hexagon-wall');
-    let currentIndex = 0;
-    let enterWordIndex = 0;
-    
-    // Clear existing content (in case of recreation)
-    hexagonWall.innerHTML = '';
-    
-    // Calculate positioning for the word
-    const totalRows = Math.floor(numHexagons / hexagonsPerRow);
-    const middleRowStart = Math.floor(totalRows / 2) - Math.floor(enterWord.length / 2);
-    const middleRowEnd = middleRowStart + enterWord.length;
-    const startColumn = Math.floor(hexagonsPerRow / 2) - Math.floor(enterWord.length / 2);
-    
-    // Create hexagon grid
-    for (let i = 0; i < numHexagons; i++) {
-        // Create new row every hexagonsPerRow
-        if (i % hexagonsPerRow === 0) {
-            const wallRow = document.createElement('div');
-            wallRow.classList.add('wallRow');
-            hexagonWall.appendChild(wallRow);
-        }
+        const hexagonWall = document.getElementById('hexagon-wall');
+        let currentIndex = 0;
+        let enterWordIndex = 0;
         
-        const hexagon = document.createElement('div');
-        hexagon.classList.add('hexagon');
+        // Calculate middle range for both rows and columns
+        const middleRowStart = Math.floor((numHexagons / hexagonsPerRow) / 5) - Math.floor(enterWord.length / 2);
+        const middleRowEnd = middleRowStart + enterWord.length;
+
+        const startColumn = Math.floor(hexagonsPerRow / 2) - Math.floor(enterWord.length / 2);
         
-        const currentRow = Math.floor(i / hexagonsPerRow);
-        const currentColumn = i % hexagonsPerRow;
-        
-        // Place letters in calculated middle region
-        if (currentRow >= middleRowStart && 
-            currentRow < middleRowEnd && 
-            currentColumn >= startColumn && 
-            enterWordIndex < enterWord.length) {
-            
-            hexagon.textContent = enterWord[enterWordIndex];
-            hexagon.setAttribute('data-letter', enterWord[enterWordIndex]);
-            hexagon.setAttribute('data-index', enterWordIndex);
-            enterWordIndex++;
-        }
-        
-        hexagonWall.lastElementChild.appendChild(hexagon);
-    }
-    
-    // Add click handlers using event delegation for better performance
-    hexagonWall.addEventListener('click', (e) => {
-        const hexagon = e.target.closest('.hexagon');
-        if (!hexagon) return;
-        
-        const letter = hexagon.getAttribute('data-letter');
-        
-        // Only process letter hexagons
-        if (!letter) return;
-        
-        hexagon.classList.add('selected');
-        
-        // Check if correct letter in sequence
-        if (letter === enterWord[currentIndex]) {
-            hexagon.classList.add('active');
-            currentIndex++;
-            
-            // All letters clicked in order
-            if (currentIndex === enterWord.length) {
-                removeHexagonWall();
-                accessGranted();
+        for (let i = 0; i < numHexagons; i++) {
+            // Create a new row element for every "hexagonsPerRow" hexagons
+            if (i % hexagonsPerRow === 0) {
+                const wallRow = document.createElement('div');
+                wallRow.classList.add('wallRow');
+                hexagonWall.appendChild(wallRow);
             }
-        } else {
-            // Optional: add error feedback
-            hexagon.classList.add('error');
-            setTimeout(() => hexagon.classList.remove('error'), 300);
+
+            const hexagon = document.createElement('div');
+            hexagon.classList.add('hexagon');
+            
+            // Calculate the current row and column
+            const currentRow = Math.floor(i / hexagonsPerRow);
+            const currentColumn = i % hexagonsPerRow;
+
+            // Assign letters to hexagons in the middle region
+            if (currentRow >= middleRowStart && currentRow < middleRowEnd && 
+                currentColumn >= startColumn && enterWordIndex < enterWord.length) {
+                hexagon.textContent = enterWord[enterWordIndex];
+                hexagon.setAttribute("data-letter", enterWord[enterWordIndex]);
+                enterWordIndex++;
+            }
+
+            // Append the hexagon to the current row
+            hexagonWall.lastElementChild.appendChild(hexagon);
         }
-    });
+
+        hexagons = document.querySelectorAll('.hexagon');
+        hexagons.forEach((hexagon) => {
+            hexagon.addEventListener('click', () => {
+                console.log(hexagon);
+                const currentLetter = enterWord[currentIndex];
+                hexagon.classList.add('selected');
+                if (hexagon.getAttribute('data-letter') === currentLetter) {
+                    hexagon.classList.add('active');
+                    currentIndex++;
+                    if (currentIndex === enterWord.length) {
+                        removeHexagonWall()
+                        accessGranted()
+                    }
+                }
+            });
+        });
 }
 
 function removeHexagonWall() {
-    const hexagonWall = $('hexagon-wall');
-    
-    hexagonWall.style.transition = `opacity ${CONFIG.transitionDuration}ms ease-out`;
+    // Remove the hexagon wall container with a fade-out effect
+    var hexagonWall = document.getElementById('hexagon-wall');
+    hexagonWall.style.transition = 'opacity 1s';
     hexagonWall.style.opacity = '0';
-    
-    setTimeout(() => {
-        hexagonWall.remove();
-    }, CONFIG.transitionDuration);
+
+    // Delay removal to match the duration of the transition (1s)
+    setTimeout(
+        function(){ 
+            hexagonWall.remove(); 
+        }, 
+        1000
+    ); 
 }
 
 function accessGranted() {
-    // Optional: add delay for effect
-    setTimeout(() => {
-        window.location.href = CONFIG.nextPage;
-    }, 500);
+    var newUrl = "./main.html"
+    document.location.href = newUrl;
 }
 
-// Initialize
 const landscapeCheck = window.matchMedia("(orientation: portrait)");
 landscapeCheck.addEventListener("change", handleOrientationChange);
 
-window.addEventListener('DOMContentLoaded', () => {
+// Initial check on load
+window.addEventListener('DOMContentLoaded', function() {
     handleOrientationChange(landscapeCheck);
+    if (!landscapeCheck.matches) {
+        
+    }
 });
