@@ -136,13 +136,21 @@
     </section>
 
     <!-- Main Content Section -->
-    <section id="mainSection" class="content-section">
+    <section id="mainSection" class="content-section" data-source="sections/main.html">
         <!-- Your main.html content goes here -->
         <h1>Welcome to Paradigm</h1>
         <p>Main content loaded successfully!</p>
         <!-- Add all your main page content here -->
     </section>
+<!-- About Section - loads from external file -->
+    <section id="aboutSection" class="content-section" data-source="sections/about.html">
+        <!-- Content will be loaded dynamically -->
+    </section>
 
+    <!-- Projects Section - loads from external file -->
+    <section id="projectsSection" class="content-section" data-source="sections/projects.html">
+        <!-- Content will be loaded dynamically -->
+    </section>
     <script src="landing.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

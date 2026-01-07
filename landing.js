@@ -52,6 +52,66 @@ function handleOrientationChange(e) {
             }
         }
 
+// Cache for loaded sections to avoid re-fetching
+const sectionCache = {};
+
+// Modified showSection function with dynamic loading
+async function showSection(sectionId) {
+    // Hide all sections
+    const sections = document.querySelectorAll('.content-section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    const targetSection = document.getElementById(sectionId);
+    if (!targetSection) {
+        console.error(`Section ${sectionId} not found`);
+        return;
+    }
+    
+    // Check if section content needs to be loaded
+    if (!sectionCache[sectionId] && targetSection.dataset.source) {
+        try {
+            // Show loading indicator (optional)
+            targetSection.innerHTML = '<div class="loading">Loading...</div>';
+            
+            // Fetch the HTML file
+            const response = await fetch(targetSection.dataset.source);
+            if (!response.ok) throw new Error('Failed to load section');
+            
+            const html = await response.text();
+            targetSection.innerHTML = html;
+            
+            // Cache the loaded content
+            sectionCache[sectionId] = html;
+            
+            // Execute any scripts in the loaded content (if needed)
+            executeScripts(targetSection);
+            
+        } catch (error) {
+            console.error(`Error loading ${sectionId}:`, error);
+            targetSection.innerHTML = '<div class="error">Failed to load content</div>';
+        }
+    }
+    
+    // Show the section
+    targetSection.classList.add('active');
+}
+
+// Helper function to execute scripts in loaded HTML
+function executeScripts(container) {
+    const scripts = container.querySelectorAll('script');
+    scripts.forEach(script => {
+        const newScript = document.createElement('script');
+        if (script.src) {
+            newScript.src = script.src;
+        } else {
+            newScript.textContent = script.textContent;
+        }
+        document.body.appendChild(newScript);
+    });
+}
+
         // Modified accessGranted for SPA
         function accessGranted() {
             // Show loading screen
