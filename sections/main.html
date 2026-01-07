@@ -117,6 +117,15 @@
 		});
 	</script>
 	<script>
+        // Section-specific navigation with loading animation
+        function transitionToSection(sectionId) {
+            showLoadingScreen();
+            setTimeout(async function() {
+                await showSection(sectionId);
+                hideLoadingScreen();
+            }, 5000);
+        }
+
 		const weatherBtn = document.querySelector("#weatherSelect");
 		const weatherCond = document.querySelector(".condition");
 
