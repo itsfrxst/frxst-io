@@ -23,7 +23,7 @@
         /* Hexagon glow animation */
         .hexagon polygon {
             filter: drop-shadow(0 0 0px #00d4ff);
-            animation: hexagonGlow 1s ease-in-out forwards, resetLoop 6s infinite;
+            animation: hexagonGlow 1s ease-in-out forwards;
         }
 
         /* Main branches */
@@ -31,10 +31,9 @@
             stroke-dasharray: 75;
             stroke-dashoffset: 75;
             filter: drop-shadow(0 0 0px #00d4ff);
-            animation: drawBranch 1.5s ease-out forwards, 
-                       branchGlow 1.5s ease-out forwards,
-                       resetLoop 6s infinite;
-            animation-delay: 1s, 1s, 0s;
+            animation: drawBranch 1s ease-out forwards, 
+                       branchGlow 1.5s ease-out forwards;
+            animation-delay: 1s, 1s;
         }
 
         /* Secondary branches */
@@ -42,28 +41,25 @@
             stroke-dasharray: 30;
             stroke-dashoffset: 30;
             filter: drop-shadow(0 0 0px #00d4ff);
-            animation: drawBranch 1s ease-out forwards,
-                       branchGlow 1s ease-out forwards,
-                       resetLoop 6s infinite;
-            animation-delay: 2.5s, 2.5s, 0s;
+            animation: drawBranch 1s ease-out forwards ,
+                       branchGlow 1s ease-out forwards;
+            animation-delay: 3s, 3.5s, 0s;
         }
 
         <!-- Crystal plates */
         .crystal-plates polygon {
             opacity: 0;
             filter: drop-shadow(0 0 2px #00d4ff);
-            animation: fadeInPlates 0.8s ease-out forwards,
-                       resetLoop 6s infinite;
-            animation-delay: 3.8s, 0s;
+            animation: fadeInPlates .8s ease-out forwards;
+            animation-delay: 30s, 1s;
         }
         
         /* Branch diamond plates appear after secondary branches */
         .branch-plates polygon {
             opacity: 0;
             filter: drop-shadow(0 0 2px #00d4ff);
-            animation: fadeInPlates 0.6s ease-out forwards,
-                       resetLoop 6s infinite;
-            animation-delay: 4.2s, 0s;
+            animation: fadeInPlates .8s ease-out forwards;
+            animation-delay: 3.5s, 0s;
         }
 
         @keyframes fadeInPlates {
@@ -71,7 +67,7 @@
                 opacity: 0;
             }
             to {
-                opacity: 0.7;
+                opacity: 1;
             }
         }
 
@@ -105,21 +101,6 @@
             }
         }
 
-        @keyframes resetLoop {
-            0% {
-                opacity: 1;
-            }
-            70% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
         /* Reset stroke-dashoffset for loop */
         svg {
             animation: restart 6s infinite;
@@ -127,15 +108,6 @@
 
         @keyframes restart {
             0% {
-                opacity: 1;
-            }
-            79% {
-                opacity: 1;
-            }
-            80% {
-                opacity: 0;
-            }
-            99% {
                 opacity: 0;
             }
             100% {
@@ -227,27 +199,27 @@
         <!-- Triangular Crystal Plates for depth (between branches on hexagon sides) -->
         <g class="crystal-plates">
             <!-- Top-right side (between top and top-right branches) -->
-            <polygon points="163.31,109.38 169.32,115.63 172.65,103.13" 
+            <polygon points="155,109 172,119 172,99" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
             
             <!-- Right side (between top-right and bottom-right branches) -->
-            <polygon points="182.48,131.25 182.48,143.75 195,137.5" 
+            <polygon points="178,128 178,148 195,138" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
             
             <!-- Bottom-right side (between bottom-right and bottom branches) -->
-            <polygon points="169.32,159.38 163.31,165.63 172.65,171.88" 
+            <polygon points="172,156 155,166 172,176" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
             
             <!-- Bottom-left side (between bottom and bottom-left branches) -->
-            <polygon points="130.68,159.38 136.69,165.63 127.35,171.88" 
+            <polygon points="128,156 145,166 128,176" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
             
             <!-- Left side (between bottom-left and top-left branches) -->
-            <polygon points="117.52,143.75 117.52,131.25 105,137.5" 
+            <polygon points="123,148 123,128 105,138" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
             
             <!-- Top-left side (between top-left and top branches) -->
-            <polygon points="136.69,109.38 130.68,115.63 127.35,103.13" 
+            <polygon points="145,109 128,119 128,99" 
                      fill="none" stroke="#00d4ff" stroke-width="1.2" opacity="0.8"/>
         </g>
         
