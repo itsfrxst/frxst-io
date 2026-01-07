@@ -142,3 +142,137 @@ body{
 .overlay-content {
   text-align: center;
 }
+
+/* ========== LOADING SCREEN & SPA STYLES ========== */
+  #loadingScreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0e27;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+      pointer-events: all;
+  }
+
+  #loadingScreen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+  }
+
+  #loadingScreen.hidden {
+      display: none;
+  }
+
+  .snowflake-container {
+      width: 400px;
+      height: 400px;
+  }
+
+  /* Snowflake animations - SVG specific */
+  #loadingScreen .hexagon polygon {
+      filter: drop-shadow(0 0 0px #00d4ff);
+      animation: hexagonGlow 1s ease-in-out forwards;
+  }
+
+  #loadingScreen .branches line {
+      stroke-dasharray: 75;
+      stroke-dashoffset: 75;
+      filter: drop-shadow(0 0 0px #00d4ff);
+      animation: drawBranch 1s ease-out forwards, 
+                  branchGlow 1.5s ease-out forwards;
+      animation-delay: 1s, 1s;
+  }
+
+  #loadingScreen .secondary-branches line {
+      stroke-dasharray: 30;
+      stroke-dashoffset: 30;
+      filter: drop-shadow(0 0 0px #00d4ff);
+      animation: drawBranch 1s ease-out forwards,
+                  branchGlow 1s ease-out forwards;
+      animation-delay: 3s, 3.5s;
+  }
+
+  #loadingScreen .crystal-plates polygon {
+      opacity: 0;
+      filter: drop-shadow(0 0 2px #00d4ff);
+      animation: fadeInPlates .8s ease-out forwards;
+      animation-delay: 1s;
+  }
+  
+  #loadingScreen .branch-plates polygon {
+      opacity: 0;
+      filter: drop-shadow(0 0 2px #00d4ff);
+      animation: fadeInPlates .8s ease-out forwards;
+      animation-delay: 4s;
+  }
+
+  @keyframes fadeInPlates {
+      from { opacity: 0; }
+      to { opacity: 1; }
+  }
+
+  @keyframes hexagonGlow {
+      0% { filter: drop-shadow(0 0 0px #00d4ff); }
+      50% { filter: drop-shadow(0 0 8px #00d4ff); }
+      100% { filter: drop-shadow(0 0 4px #00d4ff); }
+  }
+
+  @keyframes drawBranch {
+      to { stroke-dashoffset: 0; }
+  }
+
+  @keyframes branchGlow {
+      0% { filter: drop-shadow(0 0 0px #00d4ff); }
+      50% { filter: drop-shadow(0 0 8px #00d4ff); }
+      100% { filter: drop-shadow(0 0 3px #00d4ff); }
+  }
+
+  /* Content sections */
+  .content-section {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+  }
+
+  .content-section.active {
+      display: block;
+      opacity: 1;
+  }
+
+  #landingSection {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+  }
+
+  /* Override for fade-in transition */
+  #landingModal {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+  }
+
+  #landingModal.show {
+      opacity: 1;
+  }
+
+  #hexagon-wall {
+      opacity: 0;
+      transition: opacity 1s ease-in;
+  }
+
+  #hexagon-wall.show {
+      opacity: 1;
+  }
+
+  /* Main content section */
+  #mainSection {
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem;
+  }
