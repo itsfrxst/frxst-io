@@ -141,18 +141,25 @@ function removeHexagonWall() {
     ); 
 }
 
-function accessGranted() {
-    var newUrl = "./main.html"
-    document.location.href = newUrl;
-}
-
 const landscapeCheck = window.matchMedia("(orientation: portrait)");
 landscapeCheck.addEventListener("change", handleOrientationChange);
 
-// Initial check on load
-window.addEventListener('DOMContentLoaded', function() {
-    handleOrientationChange(landscapeCheck);
-    if (!landscapeCheck.matches) {
-        
-    }
-});
+// Initial load sequence
+        window.addEventListener('DOMContentLoaded', function() {
+            // Show landing section initially hidden behind loading screen
+            showSection('landingSection');
+            
+            // Wait for snowflake animation to complete
+            setTimeout(function() {
+                hideLoadingScreen();
+                
+                // After fade out, show landing content
+                setTimeout(function() {
+                    document.getElementById('landingModal').classList.add('show');
+                    document.getElementById('hexagon-wall').classList.add('show');
+                    
+                    // Initialize hexagon wall
+                    handleOrientationChange(landscapeCheck);
+                }, 1000);
+            }, 5000);
+        });
