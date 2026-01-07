@@ -12,10 +12,11 @@ body{
   border: solid 3px #b0dff4;
   z-index: 2;
   background-color: #242424c9;
-  display: block;
   color: #b0dff4;
   text-align: center;
   padding: 4px;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
 
 #landingModal h1 {
@@ -63,6 +64,8 @@ body{
   justify-content: center;
   z-index: 1;
   animation: glowingBreath 8s linear infinite;
+  opacity: 0;
+  transition: opacity 1s ease-in;
 }
 
 @keyframes glowingBreath{
@@ -252,18 +255,9 @@ body{
   }
 
   /* Override for fade-in transition */
-  #landingModal {
-      opacity: 0;
-      transition: opacity 1s ease-in;
-  }
-
+ 
   #landingModal.show {
       opacity: 1;
-  }
-
-  #hexagon-wall {
-      opacity: 0;
-      transition: opacity 1s ease-in;
   }
 
   #hexagon-wall.show {
