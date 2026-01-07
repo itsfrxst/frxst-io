@@ -14,6 +14,62 @@ function handleOrientationChange(e) {
     }
 }
 
+// SPA Navigation and Loading Management
+        function showLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.classList.remove('fade-out', 'hidden');
+            loadingScreen.style.display = 'flex';
+            
+            // Force browser to re-trigger CSS animations
+            void loadingScreen.offsetWidth;
+            
+            // Reset SVG animations by cloning and replacing
+            const svg = loadingScreen.querySelector('svg');
+            const newSvg = svg.cloneNode(true);
+            svg.parentNode.replaceChild(newSvg, svg);
+        }
+
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.classList.add('fade-out');
+            
+            setTimeout(function() {
+                loadingScreen.classList.add('hidden');
+            }, 1000);
+        }
+
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+        }
+
+        // Modified accessGranted for SPA
+        function accessGranted() {
+            // Show loading screen
+            showLoadingScreen();
+            
+            // Hide landing section
+            document.getElementById('landingSection').classList.remove('active');
+            
+            // Wait for animation to complete
+            setTimeout(function() {
+                // Show main content
+                showSection('mainSection');
+                
+                // Hide loading screen
+                hideLoadingScreen();
+            }, 5000); // Match snowflake animation duration
+        };
+
 function createHexagonWall(numHexagons, hexagonsPerRow, enterWord) {
         const hexagonWall = document.getElementById('hexagon-wall');
         let currentIndex = 0;
