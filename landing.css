@@ -179,14 +179,14 @@ body{
 
   /* Snowflake animations - SVG specific */
   #loadingScreen .hexagon polygon {
-      filter: drop-shadow(0 0 0px #00d4ff);
+      filter: drop-shadow(0 0 0px #b0dff4);
       animation: hexagonGlow 1s ease-in-out forwards;
   }
 
   #loadingScreen .branches line {
       stroke-dasharray: 75;
       stroke-dashoffset: 75;
-      filter: drop-shadow(0 0 0px #00d4ff);
+      filter: drop-shadow(0 0 0px #b0dff4);
       animation: drawBranch 1s ease-out forwards, 
                   branchGlow 1.5s ease-out forwards;
       animation-delay: 1s, 1s;
@@ -195,7 +195,7 @@ body{
   #loadingScreen .secondary-branches line {
       stroke-dasharray: 30;
       stroke-dashoffset: 30;
-      filter: drop-shadow(0 0 0px #00d4ff);
+      filter: drop-shadow(0 0 0px #b0dff4);
       animation: drawBranch 1s ease-out forwards,
                   branchGlow 1s ease-out forwards;
       animation-delay: 3s, 3.5s;
@@ -203,14 +203,14 @@ body{
 
   #loadingScreen .crystal-plates polygon {
       opacity: 0;
-      filter: drop-shadow(0 0 2px #00d4ff);
+      filter: drop-shadow(0 0 2px #b0dff4);
       animation: fadeInPlates .8s ease-out forwards;
       animation-delay: 1s;
   }
   
   #loadingScreen .branch-plates polygon {
       opacity: 0;
-      filter: drop-shadow(0 0 2px #00d4ff);
+      filter: drop-shadow(0 0 2px #b0dff4);
       animation: fadeInPlates .8s ease-out forwards;
       animation-delay: 4s;
   }
@@ -221,9 +221,9 @@ body{
   }
 
   @keyframes hexagonGlow {
-      0% { filter: drop-shadow(0 0 0px #00d4ff); }
-      50% { filter: drop-shadow(0 0 8px #00d4ff); }
-      100% { filter: drop-shadow(0 0 4px #00d4ff); }
+      0% { filter: drop-shadow(0 0 0px #b0dff4); }
+      50% { filter: drop-shadow(0 0 8px #b0dff4); }
+      100% { filter: drop-shadow(0 0 4px #b0dff4); }
   }
 
   @keyframes drawBranch {
@@ -231,9 +231,9 @@ body{
   }
 
   @keyframes branchGlow {
-      0% { filter: drop-shadow(0 0 0px #00d4ff); }
-      50% { filter: drop-shadow(0 0 8px #00d4ff); }
-      100% { filter: drop-shadow(0 0 3px #00d4ff); }
+      0% { filter: drop-shadow(0 0 0px #b0dff4); }
+      50% { filter: drop-shadow(0 0 8px #b0dff4); }
+      100% { filter: drop-shadow(0 0 3px #b0dff4); }
   }
 
   /* Content sections */
