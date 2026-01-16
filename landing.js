@@ -127,7 +127,7 @@ function executeScripts(container) {
                 
                 // Hide loading screen
                 hideLoadingScreen();
-            }, 5000); // Match snowflake animation duration
+            }, 4000); // Match snowflake animation duration
         };
 
 function createHexagonWall(numHexagons, hexagonsPerRow, enterWord) {
@@ -221,5 +221,5 @@ landscapeCheck.addEventListener("change", handleOrientationChange);
                     // Initialize hexagon wall
                     handleOrientationChange(landscapeCheck);
                 }, 1000);
-            }, 5000);
+            }, 4000);
         });
