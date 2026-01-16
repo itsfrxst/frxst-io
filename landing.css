@@ -15,7 +15,7 @@ body{
   color: #b0dff4;
   text-align: center;
   padding: 4px;
-  opacity: 0;
+  opacity: 60%;
   transition: opacity 1s ease-in;
 }
 
